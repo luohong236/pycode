@@ -1,12 +1,14 @@
 import pandas as pd 
 import os 
 import numpy as np 
+import sys 
 
 dfs=pd.DataFrame()
 ss=[]
 exps=[]
-
-for root_dir,sub_dir,files in os.walk(r'数据'):
+dir=os.path.dirname(sys.modules[__name__].__file__)
+pathn=os.path.join(dir,r'data')
+for root_dir,sub_dir,files in os.walk( os.path.join(dir,r'data')):
     for file in files:
         if file.endswith(('.xlsx','xls')):
             file_name=os.path.join(root_dir,file)
