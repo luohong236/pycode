@@ -5,6 +5,12 @@
 cd ~/.ssh
 chmod 600 id_rsa
 chmod 644 id_rsa.pub
+查看文件权限
+  cd ~/.ssh
+  ls -al
+  
+-rw-------   1 jwth  staff  1675 11 11 16:48 id_rsa
+-rw-r--r--   1 jwth  staff   398 11 11 16:48 id_rsa.pub
 
 好了，下面一步一步来实现SSH Public/Private Key的在多台电脑中的共用：
 0. 首先我们给旧的MBP起名叫OLD, 新的叫NEW，方面后面区分
