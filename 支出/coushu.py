@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import itertools
 import os
+import sys
 from dateutil.parser import parse
 from pandas.tseries.offsets import Day, MonthEnd
 
@@ -9,9 +10,11 @@ res=[]
 pds=pd.DataFrame()
 pd1=pd.DataFrame()
 pd2=pd.DataFrame()
-print(os.listdir('.'))
-shoukuan=pd.read_excel(r"./data/系统支出表.xlsx",sheet_name='付款明细')
-yinhanliushui=pd.read_excel(r'data/农商行流水账单.xls',sheet_name='银行流水')
+dir=os.path.dirname(sys.modules[__name__].__file__)
+print(dir)
+filepath=os.path.join(dir,r"data\系统支出表.xlsx")
+shoukuan=pd.read_excel(os.path.join(dir,r"data\系统支出表.xlsx"),sheet_name='付款明细')
+yinhanliushui=pd.read_excel(os.path.join(dir,r'data/农商行流水账单.xls') ,sheet_name='银行流水')
 # yinhanliushui.set_index('交易日期',inplace=True)
 yinhanliushui=yinhanliushui[(yinhanliushui['借贷标志']=='借') & (yinhanliushui['交易日期']<=pd.to_datetime('2021-4-30'))].copy()
 yinhanliushui.reset_index(drop=True,inplace=True)
@@ -68,7 +71,7 @@ idx=[x[0] for x in res]
 print(idx)
 idx=[x for x in yinhanliushui.index if (x in idx)==False]
 print(idx)
-with pd.ExcelWriter(r'output/数据核对.xlsx') as writer:
+with pd.ExcelWriter(os.path.join(dir,r'output/数据核对.xlsx')) as writer:
     pds.to_excel(writer, sheet_name='已核对')
     shoukuan.to_excel(writer, sheet_name='未核对-付款')
     yinhanliushui.loc[idx].to_excel(writer, sheet_name='未核对-银行')
