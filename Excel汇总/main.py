@@ -56,6 +56,6 @@ for root_dir,sub_dir,files in os.walk( os.path.join(dir,r'data')):
                     dfs=pd.concat([dfs,df2[col]],ignore_index=True ) 
 df=pd.DataFrame(ss)
 
-df.to_excel('联系人.xlsx')
-dfs.to_excel('数据.xlsx')
+df.to_excel(os.path.join(dir,'联系人.xlsx'))
+dfs.to_excel(os.path.join(dir,'数据.xlsx'))
 print(exps)
